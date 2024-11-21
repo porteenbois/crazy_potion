@@ -1,6 +1,6 @@
 # Important
 
-&#9888; Attention : Ne pas copier ce projet, il est surement mal fait
+&#9888; Attention : Ne pas copier ce projet, parce que c'est interdit par la loi (article L335-2)
 
 # Crazy Potion
 

@@ -8,4 +8,4 @@ Application web dédiée aux recettes de boissons
 
 ## Programming Language
 
-HTML, CSS, PHP
+HTML, CSS, PHP, JS

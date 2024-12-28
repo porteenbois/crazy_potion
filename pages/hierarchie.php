@@ -21,6 +21,32 @@ $drinks = $database->get_recettes();
 </head>
 
 <body>
+    <div class="header">
+        <div class="left">
+            <h1>Crazy Potions</h1>
+        </div>
+
+        <div class="center">
+            <h3>Hiérarchie</h3>
+            <a href="../index.php">
+                <h3>Recherche</h3>
+            </a>
+            <a href="favorites.php">
+                <h3>Favoris</h3>
+            </a>
+        </div>
+
+        <div class="right">
+            <?php if ($isLoggedIn): ?>
+		<p>Bonjour, <?php echo htmlspecialchars($_SESSION['user']['first_name']); ?> !</p>
+		<a href="modify_account.php">Modifier profil</>
+                <a href="logout.php">Se déconnecter</a>
+            <?php else: ?>
+                <a href="login.php">Se connecter</a>
+                <a href="signup.php">Créer un compte</a>
+            <?php endif; ?>
+        </div>
+    </div>
     <div class="main">
         <div class="navigation">
             <p class="path">Chemin actuel : <strong><?= htmlspecialchars(implode(' > ', $currentPath)) ?></strong></p>

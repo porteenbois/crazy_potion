@@ -1,72 +1,62 @@
-<?php
-include('data/Donnees.inc.php');
-
-function afficherSousCategories($categorie, $hierarchie) {
-    if (isset($hierarchie[$categorie]['sous-categorie'])) {
-        echo "<ul>";
-        foreach ($hierarchie[$categorie]['sous-categorie'] as $sousCategorie) {
-            echo "<li><a href='?categorie=$sousCategorie'>$sousCategorie</a></li>";
-        }
-        echo "</ul>";
-    } else {
-        echo "<p>Aucune sous-catégorie disponible.</p>";
-    }
-}
-
-function afficherRecettes($categorie, $recettes) {
-    $recettesAffichees = false;
-    echo "<h3>Recettes avec '$categorie'</h3>";
-    foreach ($recettes as $recette) {
-        if (in_array($categorie, $recette['index'])) {
-            echo "<div style='border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;'>";
-            echo "<h4>{$recette['titre']}</h4>";
-            echo "<p><strong>Ingrédients :</strong> {$recette['ingredients']}</p>";
-            echo "<p><strong>Préparation :</strong> {$recette['preparation']}</p>";
-
-            $imageName = str_replace(' ', '_', ucfirst(strtolower($recette['titre']))) . '.jpg';
-            if (file_exists("ressources/photos/$imageName")) {
-                echo "<img src='ressources/photos/$imageName' alt='{$recette['titre']}' style='max-width: 200px;'/>";
-            } else {
-                echo "<p><em>Aucune image disponible pour cette recette.</em></p>";
-            }
-            echo "</div>";
-            $recettesAffichees = true;
-        }
-    }
-
-    if (!$recettesAffichees) {
-        echo "<p>Aucune recette trouvée pour cette catégorie.</p>";
-    }
-}
-
-$categorieActuelle = isset($_GET['categorie']) ? $_GET['categorie'] : 'Aliment';
-
-?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
-    <title>Navigation Hiérarchique</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crazy Potions</title>
+  <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
-    <h1>Navigation dans la hiérarchie des aliments</h1>
-    <p><a href="?categorie=Aliment">Retour à la racine</a></p>
+  <?php
+  session_start();
+  $isLoggedIn = isset($_SESSION['user']);
+  ?>
 
-    <?php
-    $chemin = [];
-    $tempCategorie = $categorieActuelle;
-    while ($tempCategorie !== 'Aliment') {
-        array_unshift($chemin, $tempCategorie);
-        $tempCategorie = $Hierarchie[$tempCategorie]['super-categorie'][0] ?? 'Aliment';
-    }
-    array_unshift($chemin, 'Aliment');
+  <div class="header">
+    <div class="left">
+      <h1>Crazy Potions</h1>
+    </div>
 
-    echo "<p><strong>Chemin :</strong> " . implode(" > ", $chemin) . "</p>";
-    echo "<h2>Sous-catégories de '$categorieActuelle'</h2>";
-    
-    afficherSousCategories($categorieActuelle, $Hierarchie);
-    afficherRecettes($categorieActuelle, $Recettes);
-    ?>
+    <div class="center">
+      <a href="pages/hierarchie.php">
+        <h3>Hiérarchie</h3>
+      </a>
+      <h3>Recherche</h3>
+      <a href="pages/favorites.php">
+        <h3>Favoris</h3>
+      </a>
+    </div>
+
+    <div class="right">
+      <?php if ($isLoggedIn): ?>
+	<p>Bonjour, <?php echo htmlspecialchars($_SESSION['user']['first_name']); ?> !</p>
+	<a href="pages/modify_account.php">Modifier profil</>
+        <a href="pages/logout.php">Se déconnecter</a>
+      <?php else: ?>
+        <a href="pages/login.php">Se connecter</a>
+        <a href="pages/signup.php">Créer un compte</a>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <br>
+  <div id="main">
+    <div id="search-container">
+      <input type="text" id="search-bar" placeholder="Rechercher un aliment..." autocomplete="off">
+      <button id="add-filter-btn">Ajouter filtre</button>
+    </div>
+    <div id="autocomplete-results"></div>
+    <div id="filters-container">
+      <h3>Filtres :</h3>
+      <div id="filters-list"></div>
+    </div>
+
+    <div id="results-container"></div>
+
+  </div>
+  <script src="js/search.js"></script>
 </body>
-</html>
 
+</html>

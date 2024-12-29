@@ -1,0 +1,92 @@
+/* Global styles */
+body {
+    font-family: Ubuntu;
+    background-color: #f5f5f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Messages de succès */
+  .success {
+    color: #28a745;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  
+  /* Form container */
+  .form-container {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Form title */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+  
+  /* Error message */
+  .error {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  /* Form elements */
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .form-input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  .form-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-link {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .form-link:hover {
+    text-decoration: underline;
+  }
+  
+  

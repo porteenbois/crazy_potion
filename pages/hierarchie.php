@@ -174,7 +174,7 @@ $isLoggedIn = isset($_SESSION['user']);
                             headers: {
                                 "Content-Type": "application/json",
                             },
-                            body: JSON.stringify({ recipeId }),
+                            body: JSON.stringify({ recipeId, action: "add"}),
                         });
 
                         const responseText = await response.text();

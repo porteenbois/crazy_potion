@@ -1,0 +1,228 @@
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0px;
+    width: 100%;
+  }
+  
+  .main{
+    width: 100%;
+  }
+  
+  .navigation{
+    margin-left: 20px;
+  }
+  
+  #search-container {
+    margin-left: 50px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 80%;
+  }
+  
+  /* Bouton Ajouter filtre */
+  #add-filter-btn {
+    padding: 8px 12px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #add-filter-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Conteneur des filtres */
+  #filters-container {
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  #filters-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Style des éléments de filtre */
+  .filter-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filter-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Filtres positifs */
+  .filter-item.positive {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  /* Filtres négatifs */
+  .filter-item.negative {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+  
+  /* Résultats d'autocomplétion */
+  #autocomplete-results {
+    left: 50px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #fff;
+    z-index: 1000;
+    position: absolute;
+    width: 80%;
+  }
+  
+  #autocomplete-results div {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  #autocomplete-results div:hover {
+    background: #f0f0f0;
+  }
+  
+  /* Barre de recherche */
+  #search-bar {
+    width: 100%;
+    padding: 8px;
+  }
+  
+  #results-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  .result-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  
+  .result-item h3 {
+    margin: 0 0 5px;
+    color: #007BFF;
+  }
+  
+  .result-item p {
+    margin: 0 0 5px;
+  }
+  
+  
+  .recipe-label{
+    font-weight: bold;
+  }
+  
+  
+  
+  
+  /* Style pour le header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa; /* Couleur de fond légère */
+    border-bottom: 1px solid #ccc; /* Ligne de séparation */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre pour un effet moderne */
+    width: 100%;
+  }
+  
+  /* Section gauche */
+  .header .left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #007BFF; /* Couleur principale */
+  }
+  
+  /* Section centrale */
+  .header .center {
+    display: flex;
+    gap: 20px; /* Espacement entre les éléments */
+    padding: 20px;
+  }
+  
+  .header .center h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333; /* Couleur de texte */
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .header .center h3:hover {
+    color: #007BFF; /* Couleur au survol */
+    text-decoration: underline;
+  }
+  
+  /* Section droite */
+  .header .right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .header .left {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  
+  .header .right p {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .header .right a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #007BFF;
+    transition: color 0.3s ease;
+  }
+  
+  .header .right a:hover {
+    color: #0056b3; /* Couleur au survol */
+    text-decoration: underline;
+  }
+  
+  /* Responsive pour petits écrans */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .header .center {
+      margin: 10px 0;
+    }
+  
+    .header .right {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

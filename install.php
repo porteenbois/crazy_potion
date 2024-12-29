@@ -2,13 +2,13 @@
 // Configuration de la base de données
 $host = 'localhost'; // Serveur de la base de données
 $username = 'root';  // Nom d'utilisateur MySQL/MariaDB
-$password = 'root'; // Mot de passe MySQL/MariaDB
+$password = 'potions'; // Mot de passe MySQL/MariaDB
 $dbname = 'boissons'; // Nom de la base à créer
 
-include 'data/Donnees.inc.php';
+include 'ressources/Donnees.inc.php';
 
 // Liste des noms de tables
-const DB_TABLES = ["ingredients", "hierarchy", "users", "recipes", "ingredients_assoc"];
+const DB_TABLES = ["ingredients", "hierarchy", "users", "recipes", "ingredients_assoc", "favorites"];
 
 // Liste des requêtes SQL pour créer les tables
 const SQL_TABLES = [
@@ -41,8 +41,8 @@ const SQL_TABLES = [
 
     "CREATE TABLE IF NOT EXISTS recipes (
         id INT AUTO_INCREMENT PRIMARY KEY,
-	    name VARCHAR(255) NOT NULL,
-	    ingredients TEXT NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	ingredients TEXT NOT NULL,
         description TEXT NOT NULL
     )",
 
@@ -60,7 +60,7 @@ const SQL_TABLES = [
         PRIMARY KEY (recipe_id, user_id),
         FOREIGN KEY (recipe_id) REFERENCES recipes(id),
         FOREIGN KEY (user_id) REFERENCES users(id)
-    )",
+    )"
 ];
 
 try {
@@ -104,7 +104,7 @@ try {
     foreach ($Hierarchie as $drink => $relations) {
         // Insérer l'aliment dans la table `ingredients`
         $stmt = $pdo->prepare("INSERT INTO ingredients (name) VALUES (:name) ON DUPLICATE KEY UPDATE id=id");
-        $stmt->execute(['name' => $drink]);
+        $stmt->execute(['name' => strtolower($drink)]);
 
         // Récupérer l'ID de l'aliment inséré
         $stmt = $pdo->prepare("SELECT id FROM ingredients WHERE name = :name");
@@ -116,7 +116,7 @@ try {
             foreach ($relations['sous-categorie'] as $subCategory) {
                 // Insérer ou récupérer la sous-catégorie
                 $stmt = $pdo->prepare("INSERT INTO ingredients (name) VALUES (:name) ON DUPLICATE KEY UPDATE id=id");
-                $stmt->execute(['name' => $subCategory]);
+                $stmt->execute(['name' => strtolower($subCategory)]);
 
                 $stmt = $pdo->prepare("SELECT id FROM ingredients WHERE name = :name");
                 $stmt->execute(['name' => $subCategory]);
@@ -124,7 +124,7 @@ try {
 
                 // Insérer la relation dans la table `hierarchy`
                 $stmt = $pdo->prepare("INSERT INTO hierarchy (id_super, id_sub) VALUES (:idSuper, :idSub)");
-                $stmt->execute(['idSuper' => $drinkId, 'idSub' => $subCategoryId]);
+                $stmt->execute(['idSuper' => strtolower($drinkId), 'idSub' => strtolower($subCategoryId)]);
             }
         }
     }
@@ -135,12 +135,12 @@ try {
         // Insérer la recette dans la table `recipes`
         $stmt = $pdo->prepare("INSERT INTO recipes (name, ingredients, description) VALUES (:name, :ingredients ,:description)");
         $stmt->execute([
-		'name' => $recette['titre'],
-		'ingredients' => $recette["ingredients"],
-            	'description' => $recette['preparation']
-	]);
-	echo $recette['titre'];
-	echo "<br>";
+            'name' => $recette['titre'],
+            'ingredients' => strtolower($recette["ingredients"]),
+            'description' => strtolower($recette['preparation'])
+        ]);
+        echo $recette['titre'];
+        echo "<br>";
 
 
         // Récupérer l'ID de la recette insérée
@@ -150,10 +150,10 @@ try {
         foreach ($recette["index"] as $ingredient) {
             // Insérer ou récupérer l'aliment dans la table `drinks`
             $stmt = $pdo->prepare("INSERT INTO ingredients (name) VALUES (:name) ON DUPLICATE KEY UPDATE id=id");
-	    $stmt->execute(['name' => $ingredient]);
+            $stmt->execute(['name' => strtolower($ingredient)]);
 
-	    echo $ingredient;
-	    echo "<br>";
+            echo $ingredient;
+            echo "<br>";
 
             $stmt = $pdo->prepare("SELECT id FROM ingredients WHERE name = :name");
             $stmt->execute(['name' => $ingredient]);
@@ -161,12 +161,12 @@ try {
 
             // Insérer la relation recette-ingrédient dans la table `ingredients_assoc`
             $stmt = $pdo->prepare("INSERT INTO ingredients_assoc (recipe_id, ingredient_id) VALUES (:recipeId, :ingredientId) ON DUPLICATE KEY UPDATE recipe_id = recipe_id");
-	    $stmt->execute(['recipeId' => $recipeId, 'ingredientId' => $ingredientId]);
+            $stmt->execute(['recipeId' => $recipeId, 'ingredientId' => $ingredientId]);
 
-	    echo $recipeId;
-	    echo "<br>";
-	    echo $ingredientId;
-	    echo "<br>";
+            echo $recipeId;
+            echo "<br>";
+            echo $ingredientId;
+            echo "<br>";
 
         }
     }
